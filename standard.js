@@ -1,3 +1,5 @@
+'use strict';
+
 // *を関数名の前に付けると、Generator関数になる
 // yieldでGeneratorから値を返す
 function *unknownSize() {
