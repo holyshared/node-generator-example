@@ -25,8 +25,8 @@ nextメソッドが返す値は次のようなフォーマットのオブジェ�
 const gen = unknownSize();
 
 const element1 = gen.next(); // { value: 1, done: false }
-const element2 = gen.next(); // { value: 1, done: false }
-const element3 = gen.next(); // { value: 1, done: false }
+const element2 = gen.next(); // { value: 2, done: false }
+const element3 = gen.next(); // { value: 3, done: false }
 const element4 = gen.next(); // { value: undefined, done: true }
 ```
 
@@ -47,9 +47,9 @@ function *knownSize(size) {
 }
 
 const gen = knownSize(2);
-const element1 = gen.next();
-const element2 = gen.next();
-const element3 = gen.next();
+const element1 = gen.next(); // { value: 1, done: false }
+const element2 = gen.next(); // { value: 2, done: false }
+const element3 = gen.next(); // { value: undefined, done: true }
 
 console.log(element1);
 console.log(element2);
