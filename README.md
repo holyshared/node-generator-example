@@ -18,7 +18,7 @@ yield式は、nextメソッドを実行すると実行され、Generatorから�
 
 	const v = gen.next(); // vはyieldで返した値
 
-この時、Generator内部では、処理が一旦中断します。
+この時、Generator内部では、処理が一旦中断します。  
 処理の再開は、nextメソッドが呼ばれると行われます。
 
 nextメソッドが返す値は次のようなフォーマットのオブジェクトです。
