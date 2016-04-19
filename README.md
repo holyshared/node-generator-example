@@ -1,7 +1,7 @@
 # node-generator-example
 
-*を関数名の前に付けると、Generator関数になる。
-yieldでGeneratorから値を返す。
+*を関数名の前に付けると、Generator関数になります。  
+yieldでGeneratorから値を返すことができます。
 
 ```js
 function *unknownSize() {
@@ -11,8 +11,15 @@ function *unknownSize() {
 }
 ```
 
-Generator関数を実行すると、Generatorオブジェクトを返します。
-nextメソッドを実行することで、Generatorから値を取り出せます。
+Generator関数を実行すると、Generatorオブジェクトを返します。  
+値を返すには、Generator関数内で、yield式を使用して行います。
+ 
+yield式は、nextメソッドを実行すると実行され、Generatorから値を取得することができます。
+
+	const v = gen.next(); // vはyieldで返した値
+
+この時、Generator内部では、処理が一旦中断します。
+処理の再開は、nextメソッドが呼ばれると行われます。
 
 nextメソッドが返す値は次のようなフォーマットのオブジェクトです。
 
@@ -22,6 +29,14 @@ nextメソッドが返す値は次のようなフォーマットのオブジェ�
 |done|boolean|Generatorから続けて、値を返せるかの状態、trueの場合はそれ以上値を返すことができない|
 
 ```js
+// standard.js
+
+function *unknownSize() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
 const gen = unknownSize();
 
 const element1 = gen.next(); // { value: 1, done: false }
@@ -40,6 +55,7 @@ Generatorから返す値を制御したい場合、Generator関数の引数に�
 下記の例では、いくつ値を返すかを引数で渡して、その数だけGeneratorから値を返しています。
 
 ```js
+// size-of-item.js
 function *knownSize(size) {
   for (let i = 0; i <= size -1; i++) {
     yield i;
@@ -54,4 +70,39 @@ const element3 = gen.next(); // { value: undefined, done: true }
 console.log(element1);
 console.log(element2);
 console.log(element3);
+```
+
+## Generatorに値を送る
+
+Generatorのnextメソッドに引数を指定すると、Generatorに値を送ることができます。  
+送った値を元に、新しい値を送ったりすることができます。
+
+送られるた値は直前の**yield式**の結果として扱われます。
+
+	const [Generatorに送られた値] = yield [返す値];
+
+
+```js
+// send-to-value.js
+'use strict';
+
+function *generatorOfValue(defaultValue) {
+  const v1 = yield defaultValue; // v1はnextで送られた値
+  const v2 = yield v1 * 2;       // v2はnextで送られた値
+  const v3 = yield v2 * 2;       // v3はnextで送られた値
+  yield v3 * 2;
+}
+
+const gen = generatorOfValue(1);
+const element1 = gen.next();                // 値を取り出す
+const element2 = gen.next(element1.value);  // 値を送る
+const element3 = gen.next(element2.value);
+const element4 = gen.next(element3.value);
+const element5 = gen.next(element4.value);
+
+console.log(element1);  // 1
+console.log(element2);  // 2
+console.log(element3);  // 4
+console.log(element4);  // 8
+console.log(element5);  // undefined
 ```
