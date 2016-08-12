@@ -110,8 +110,8 @@ console.log(element5);  // undefined
 
 ## coを使用した非同期処理
 
-coを使用すると、非同期処理を同期的なコードのように書けます。
-Generator関数の中で、yieldを使用して、Promiseオブジェクトを送ると、
+coを使用すると、非同期処理を同期的なコードのように書けます。  
+Generator関数の中で、yieldを使用して、Promiseオブジェクトを送ると、  
 co側で、Promiseオブジェクトを処理し、結果を返してくれるようになります。
 
 ```js
