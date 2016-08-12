@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/holyshared/node-generator-example/issues"
   },
-  "homepage": "https://github.com/holyshared/node-generator-example#readme"
+  "homepage": "https://github.com/holyshared/node-generator-example#readme",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "bluebird-co": "^2.1.2"
+  }
 }

@@ -106,3 +106,32 @@ console.log(element3);  // 4
 console.log(element4);  // 8
 console.log(element5);  // undefined
 ```
+
+
+## coを使用した非同期処理
+
+coを使用すると、非同期処理を同期的なコードのように書けます。
+Generator関数の中で、yieldを使用して、Promiseオブジェクトを送ると、
+co側で、Promiseオブジェクトを処理し、結果を返してくれるようになります。
+
+```js
+// co.js
+const co = require('bluebird-co').co;
+
+// Promsieオブジェクトを返す何かしらの関数
+function example(value) {
+  return Promise.resolve(value * 2);
+}
+
+co(function *() {
+  //v1は2
+  const v1 = yield example(1) //Promiseオブジェクトを処理する
+  console.log(v1);
+
+  //v2は4
+  const v2 = yield example(2) //Promiseオブジェクトを処理する
+  console.log(v2);
+}).catch((err) => {
+  console.log(err);
+});
+```
